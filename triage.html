@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Use-Case Intake Triage</title>
+<link rel="stylesheet" href="fonts/inter.css">
+<style>
+:root{--navy:#15334E;--gold:#D9A93A;--off:#FAF8F3;--ink:#15334E;--mute:#5A6B7B;--line:#D9DEE4;--white:#fff;
+--t4:#8B1E1E;--t3:#15334E;--t2:#7A5A10;--t1:#2E6B3F}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--off);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-text-size-adjust:100%}
+a{color:var(--navy)}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:var(--white)}
+header .wrap{padding:36px 20px 30px}
+.kicker{color:var(--gold);font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(28px,6vw,40px);line-height:1.1;margin:12px 0 12px;letter-spacing:-.5px}
+header p{margin:0;font-size:17px;line-height:1.5;color:#DCE4EC;max-width:600px}
+.meta{margin-top:16px;font-size:13px;color:#B9C6D3}
+.steps{display:flex;gap:6px;margin:26px 0 8px}
+.steps span{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.steps span.on{background:var(--gold)}
+.steplabel{font-size:13px;color:var(--mute);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+section.card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px 22px;margin:14px 0 22px}
+h2{font-size:23px;margin:4px 0 8px;line-height:1.25}
+.lead{color:var(--mute);font-size:15px;line-height:1.5;margin:0 0 18px}
+.q{border-top:1px solid var(--line);padding:16px 0}
+.q:first-of-type{border-top:0}
+.q p{margin:0 0 10px;font-size:16px;line-height:1.45;font-weight:500}
+.new{display:inline-block;background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:5px;margin-left:6px;vertical-align:2px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opt{border:2px solid var(--line);background:var(--white);color:var(--ink);font:600 15px Inter,sans-serif;padding:10px 16px;border-radius:10px;cursor:pointer;min-width:74px}
+.opt:hover{border-color:var(--navy)}
+.opt[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--white)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.chk{display:flex;gap:10px;align-items:flex-start;border:2px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;font-size:15px;line-height:1.35;background:var(--white);text-align:left;font-family:Inter,sans-serif;color:var(--ink)}
+.chk .box{flex:0 0 20px;height:20px;border:2px solid var(--mute);border-radius:5px;margin-top:1px}
+.chk[aria-pressed="true"]{border-color:var(--navy);background:#EEF2F6}
+.chk[aria-pressed="true"] .box{background:var(--navy);border-color:var(--navy)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.btn{font:700 16px Inter,sans-serif;padding:14px 22px;border-radius:10px;border:0;cursor:pointer}
+.primary{background:var(--navy);color:var(--white)}
+.primary:disabled{opacity:.35;cursor:not-allowed}
+.ghost{background:transparent;color:var(--navy);border:2px solid var(--line)}
+.hint{font-size:14px;color:var(--mute);margin-top:10px}
+.hidden{display:none}
+.result{border-radius:14px;padding:26px 22px;color:var(--white);margin:14px 0}
+.result .tier{font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.result h2{color:var(--white);font-size:30px;margin:8px 0 10px}
+.result p{margin:0;font-size:16px;line-height:1.5}
+.why{list-style:none;padding:0;margin:0}
+.why li{padding:10px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.45}
+.why li:first-child{border-top:0}
+.rule{font-weight:600}
+.ladder{margin:6px 0 0;padding:0;list-style:none}
+.ladder li{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-top:1px solid var(--line);font-size:15px;color:var(--mute)}
+.ladder li b{flex:0 0 70px;color:var(--ink)}
+.ladder li.hit{color:var(--ink);font-weight:600}
+.ladder li.hit b{color:var(--gold)}
+.note{font-size:13px;color:var(--mute);line-height:1.5}
+footer{border-top:1px solid var(--line);margin-top:30px;padding:22px 0 40px;font-size:13px;color:var(--mute);line-height:1.6}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="kicker">Artefact 14 · AI Use-Case Intake Form</div>
+<h1>Which risk tier does your AI use case land in?</h1>
+<p>Three short steps, about two minutes. The first rule that matches sets the tier, read top down. Nothing you enter is stored or sent anywhere.</p>
+<div class="meta">Oise OISE · Data &amp; AI Governance · EU AI Act dates as amended by Regulation (EU) 2026/1744</div>
+</div></header>
+
+<main class="wrap">
+<div class="steps" aria-hidden="true"><span id="p1" class="on"></span><span id="p2"></span><span id="p3"></span><span id="p4"></span></div>
+<div class="steplabel" id="steplabel">Step 1 of 3</div>
+
+<!-- STEP 1 -->
+<section class="card" id="s1">
+<h2>Prohibited practice</h2>
+<p class="lead">Does the system do any of the following? These are not risks to be mitigated. Any yes stops the triage.</p>
+<div id="e1"></div>
+<div class="nav"><span></span><button class="btn primary" id="n1" disabled>Next</button></div>
+<div class="hint" id="h1">Answer every question to continue.</div>
+</section>
+
+<!-- STEP 2 -->
+<section class="card hidden" id="s2">
+<h2>High-risk domain</h2>
+<p class="lead">Does the system operate in, or materially support, any of these domains? Select all that apply.</p>
+<div class="grid" id="e2"></div>
+<div class="nav"><button class="btn ghost" data-back="1">Back</button><button class="btn primary" id="n2" disabled>Next</button></div>
+<div class="hint" id="h2">Select at least one, or "None of the above".</div>
+</section>
+
+<!-- STEP 3 -->
+<section class="card hidden" id="s3">
+<h2>Impact, data and output</h2>
+<p class="lead">Six impact questions, then what data the system uses and how its output is used.</p>
+<div id="e3"></div>
+<div class="q"><p>Which data does it use? Select all that apply.</p><div class="grid" id="d1"></div></div>
+<div class="q"><p>How will the output be used?</p><div class="grid" id="b9"></div></div>
+<div class="nav"><button class="btn ghost" data-back="2">Back</button><button class="btn primary" id="n3" disabled>See my tier</button></div>
+<div class="hint" id="h3">Answer every question to continue.</div>
+</section>
+
+<!-- RESULT -->
+<section class="hidden" id="s4">
+<div class="result" id="res"><div class="tier" id="rtier"></div><h2 id="rname"></h2><p id="rnext"></p></div>
+<section class="card">
+<h2>Why this tier</h2>
+<ul class="why" id="why"></ul>
+</section>
+<section class="card">
+<h2>The four rules, read top down</h2>
+<ul class="ladder" id="ladder">
+<li data-t="4"><b>Tier 4</b><span>Any prohibited practice: do not proceed, escalate at once</span></li>
+<li data-t="3"><b>Tier 3</b><span>An Annex III domain, special-category data, or three or more impact flags</span></li>
+<li data-t="2"><b>Tier 2</b><span>Personal data, an output that decides, or one or two impact flags</span></li>
+<li data-t="1"><b>Tier 1</b><span>None of the above, and no personal or confidential data</span></li>
+</ul>
+</section>
+<div class="nav"><button class="btn ghost" id="restart">Start again</button><span></span></div>
+<p class="note">This is a provisional tier, as the intake form gives on submission. The full form goes on to the privacy trigger, the oversight design and the assessment itself. It illustrates Artefact 14 and is not legal advice.</p>
+</section>
+
+<footer>
+<p style="margin:0 0 10px"><a href="index.html">Back to the site</a> · <a href="a14.html">Artefact 14 page</a> · <a href="privacy.html">Privacy</a></p>
+<b>About this tool.</b> It runs the classification section (E1 to E4) of Artefact 14, the AI Use-Case Intake Form, by Oise OISE. Two prohibitions marked "From 2 Dec 2026" were added to Article 5 of the EU AI Act by Regulation (EU) 2026/1744 and were added to the form in version 1.1. "Unsure" counts as Yes on this page, the cautious reading, until the AI Governance Owner resolves it.<br>
+Dates: Annex III high-risk obligations from 2 December 2027; Annex I from 2 August 2028; new Article 5(1)(ba) and (bb) from 2 December 2026 (Regulation (EU) 2026/1744, Article 113 as amended).
+</footer>
+</main>
+
+<script>
+const E1=[
+ 'Deploy subliminal, manipulative or deceptive techniques that materially distort behaviour and cause harm?',
+ 'Exploit vulnerabilities related to age, disability, or a specific social or economic situation?',
+ 'Evaluate or classify people over time on social behaviour or personal characteristics, leading to detrimental treatment (social scoring)?',
+ 'Infer emotions in the workplace or in educational settings?',
+ 'Categorise individuals biometrically to deduce race, political opinion, trade union membership, religious belief, sexual orientation or sex life?',
+ 'Perform untargeted scraping of facial images to build or expand a facial recognition database?',
+ 'Conduct real-time remote biometric identification in publicly accessible spaces?',
+ 'Predict criminal offending based solely on profiling or personality traits?',
+ ['Generate or manipulate realistic intimate images, video or audio of an identifiable person without their explicit consent?','new'],
+ ['Generate or manipulate child sexual abuse material?','new']];
+const E2=['Biometric identification or categorisation','Education: admission, assessment, progression, proctoring','Critical infrastructure: safety-relevant operation','Employment: recruitment, selection, promotion, task allocation, monitoring, termination','Essential private or public services: eligibility, benefits, emergency dispatch','Creditworthiness assessment or credit scoring','Life and health insurance: risk assessment and pricing','Law enforcement, migration, asylum or border control','Administration of justice or democratic processes','Product safety component under EU harmonisation law'];
+const E3=['Will outputs affect an individual’s access to a service, opportunity, benefit, or their treatment by the organisation?','Could the outputs produce different results for different demographic groups?','Would an error in the output cause material harm (financial, physical, legal) or harm to a person’s reputation or wellbeing?','Will users be unable to tell that they are interacting with, or being assessed by, an AI system?','Is the system’s reasoning difficult to explain to an affected person in plain language?','Would the organisation be unable to operate the underlying process if the system failed?'];
+const D1=[['Public data','pub'],['Internal non-personal data','int'],['Commercially confidential','conf'],['Personal data','pers'],['Special-category personal data (health, biometric, ethnicity and similar)','spec']];
+const B9=[['Informs: a person reaches their own conclusion','inf'],['Recommends: a person accepts or rejects it','rec'],['Decides with human confirmation','dhc'],['Decides autonomously','dauto']];
+
+const st={e1:{},e2:new Set(),e3:{},d1:new Set(),b9:null};
+const $=id=>document.getElementById(id);
+function yesNo(container,list,key){list.forEach((item,i)=>{const text=Array.isArray(item)?item[0]:item,isNew=Array.isArray(item);const q=document.createElement('div');q.className='q';q.innerHTML=`<p>${text}${isNew?'<span class="new">From 2 Dec 2026</span>':''}</p><div class="opts" role="group" aria-label="${text.replace(/"/g,'')}"></div>`;const g=q.querySelector('.opts');['Yes','No','Unsure'].forEach(v=>{const b=document.createElement('button');b.className='opt';b.type='button';b.textContent=v;b.setAttribute('aria-pressed','false');b.onclick=()=>{st[key][i]=v;g.querySelectorAll('.opt').forEach(x=>x.setAttribute('aria-pressed',x===b));check();};g.appendChild(b);});container.appendChild(q);});}
+function multi(container,list,set,noneKey){list.forEach(item=>{const [text,val]=Array.isArray(item)?item:[item,item];const b=document.createElement('button');b.type='button';b.className='chk';b.setAttribute('aria-pressed','false');b.innerHTML=`<span class="box"></span><span>${text}</span>`;b.onclick=()=>{if(val==='none'){set.clear();container.querySelectorAll('.chk').forEach(x=>x.setAttribute('aria-pressed','false'));set.add('none');b.setAttribute('aria-pressed','true');}else{set.delete('none');const n=container.querySelector('[data-none]');if(n)n.setAttribute('aria-pressed','false');if(set.has(val)){set.delete(val);b.setAttribute('aria-pressed','false');}else{set.add(val);b.setAttribute('aria-pressed','true');}}check();};if(val==='none')b.dataset.none='1';container.appendChild(b);});}
+function single(container,list){list.forEach(([text,val])=>{const b=document.createElement('button');b.type='button';b.className='chk';b.setAttribute('aria-pressed','false');b.innerHTML=`<span class="box"></span><span>${text}</span>`;b.onclick=()=>{st.b9=val;container.querySelectorAll('.chk').forEach(x=>x.setAttribute('aria-pressed',x===b));check();};container.appendChild(b);});}
+yesNo($('e1'),E1,'e1');multi($('e2'),[...E2,['None of the above','none']],st.e2);yesNo($('e3'),E3,'e3');multi($('d1'),D1,st.d1);single($('b9'),B9);
+
+function check(){
+ const ok1=Object.keys(st.e1).length===E1.length; $('n1').disabled=!ok1; $('h1').style.display=ok1?'none':'block';
+ const ok2=st.e2.size>0; $('n2').disabled=!ok2; $('h2').style.display=ok2?'none':'block';
+ const ok3=Object.keys(st.e3).length===E3.length&&st.d1.size>0&&st.b9; $('n3').disabled=!ok3; $('h3').style.display=ok3?'none':'block';
+ const e1yes=Object.values(st.e1).some(v=>v!=='No'); $('n1').textContent=ok1&&e1yes?'See my tier':'Next';
+}
+function show(n){[1,2,3,4].forEach(i=>{$('s'+i).classList.toggle('hidden',i!==n);$('p'+i).classList.toggle('on',i<=n);});$('steplabel').textContent=n<4?`Step ${n} of 3`:'Result';window.scrollTo({top:0,behavior:'smooth'});}
+$('n1').onclick=()=>{Object.values(st.e1).some(v=>v!=='No')?result():show(2);};
+$('n2').onclick=()=>show(3);
+$('n3').onclick=result;
+document.querySelectorAll('[data-back]').forEach(b=>b.onclick=()=>show(+b.dataset.back));
+$('restart').onclick=()=>location.reload();
+
+function result(){
+ const why=[];let tier;
+ const e1y=E1.map((q,i)=>[Array.isArray(q)?q[0]:q,st.e1[i]]).filter(([,v])=>v!=='No');
+ const doms=E2.filter(d=>st.e2.has(d));
+ const flags=Object.values(st.e3).filter(v=>v!=='No').length;
+ const pers=st.d1.has('pers'),spec=st.d1.has('spec'),conf=st.d1.has('conf'),decides=st.b9==='dhc'||st.b9==='dauto';
+ if(e1y.length){tier=4;e1y.forEach(([q,v])=>why.push(`<span class="rule">Prohibited practice screen:</span> ${v} to "${q}"`));}
+ else if(doms.length||spec||flags>=3){tier=3;
+  if(doms.length)why.push(`<span class="rule">Annex III domain:</span> ${doms.join('; ')}. Under the Digital Omnibus, Annex III high-risk obligations apply from 2 December 2027.`);
+  if(spec)why.push('<span class="rule">Special-category personal data:</span> a DPIA is mandatory and the minimum is Tier 3.');
+  if(flags>=3)why.push(`<span class="rule">Impact screen:</span> ${flags} of 6 flags raised (Yes or Unsure).`);}
+ else if(pers||decides||flags>=1){tier=2;
+  if(pers)why.push('<span class="rule">Personal data:</span> a privacy assessment is triggered.');
+  if(decides)why.push(`<span class="rule">Output use:</span> ${st.b9==='dauto'?'decides autonomously, so an appeal route is mandatory where it affects individuals':'decides with human confirmation, so the reviewer needs the authority, the information and the time to disagree'}.`);
+  if(flags>=1)why.push(`<span class="rule">Impact screen:</span> ${flags} of 6 flags raised (Yes or Unsure).`);}
+ else {tier=1;why.push('No prohibited practice, no Annex III domain, no impact flags, no personal data, and the output informs or recommends.');
+  if(conf)why.push('<span class="rule">Commercially confidential data:</span> a security review is still required.');}
+ if(tier===1&&conf){tier=2;why.length=0;why.push('<span class="rule">Commercially confidential data:</span> Tier 1 requires no personal or confidential data, so this lands in Tier 2 with a security review.');}
+ const T={4:['Tier 4','Prohibited or exceptional','Do not proceed. Escalate immediately to the AI Governance Owner and the AI Steering Committee.','var(--t4)'],
+  3:['Tier 3','High','Full eight-domain assessment, a Review Board decision, and a quarterly review.','var(--t3)'],
+  2:['Tier 2','Moderate','Targeted assessment, an AI Governance Owner decision, and a semi-annual review.','var(--t2)'],
+  1:['Tier 1','Low','Light-touch confirmation against the approved-tool register, and an annual review.','var(--t1)']}[tier];
+ $('rtier').textContent=T[0];$('rname').textContent=T[1];$('rnext').textContent=T[2];$('res').style.background=T[3];
+ $('why').innerHTML=why.map(w=>`<li>${w}</li>`).join('');
+ document.querySelectorAll('#ladder li').forEach(li=>li.classList.toggle('hit',+li.dataset.t===tier));
+ show(4);
+}
+check();
+</script>
+</body>
+</html>

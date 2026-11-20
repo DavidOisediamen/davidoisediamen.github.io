@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oise OISE · Data &amp; AI Governance</title>
+<link rel="stylesheet" href="fonts/inter.css">
+<style>
+:root{--navy:#15334E;--navy2:#0F2639;--gold:#D9A93A;--off:#FAF8F3;--ink:#15334E;--mute:#5A6B7B;--line:#D9DEE4;--white:#fff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--off);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.5;-webkit-text-size-adjust:100%}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+/* header */
+.top{background:var(--navy);color:var(--white);position:sticky;top:0;z-index:10;border-bottom:1px solid rgba(255,255,255,.08)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.brand{font-weight:800;font-size:18px;letter-spacing:.2px;text-decoration:none}
+.brand span{color:var(--gold)}
+nav{display:flex;gap:22px;align-items:center}
+nav a{text-decoration:none;font-size:14px;font-weight:500;color:#D6DEE6}
+nav a:hover{color:var(--white)}
+.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:15px;padding:13px 20px;border-radius:10px;border:2px solid transparent;transition:.15s}
+.btn-gold{background:var(--gold);color:var(--navy2)}
+.btn-gold:hover{filter:brightness(1.06)}
+.btn-line{border-color:rgba(255,255,255,.35);color:var(--white)}
+.btn-line:hover{border-color:var(--white)}
+.btn-navy{background:var(--navy);color:var(--white)}
+.navcta{padding:9px 14px;font-size:14px}
+@media(max-width:820px){nav a:not(.navcta){display:none}}
+/* hero */
+.hero{background:var(--navy);color:var(--white);padding:72px 0 88px}
+.kicker{color:var(--gold);font-weight:700;font-size:13px;letter-spacing:2.5px;text-transform:uppercase}
+.hero h1{font-size:clamp(34px,5.4vw,58px);line-height:1.05;letter-spacing:-1.2px;margin:16px 0 20px;max-width:860px;font-weight:800}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p.sub{font-size:clamp(17px,2vw,20px);color:#D6DEE6;max-width:720px;margin:0 0 30px}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:34px}
+.tag{font-size:12.5px;font-weight:600;letter-spacing:.4px;padding:6px 11px;border-radius:999px;border:1px solid rgba(217,169,58,.55);color:#F1D58F}
+/* sections */
+section{padding:72px 0}
+.label{font-weight:700;font-size:12.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold)}
+h2{font-size:clamp(26px,3.4vw,36px);line-height:1.15;letter-spacing:-.6px;margin:10px 0 14px;font-weight:800}
+.lede{color:var(--mute);font-size:17px;max-width:720px;margin:0 0 34px}
+/* try it */
+.try{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:30px;display:grid;grid-template-columns:1.1fr 1fr;gap:34px;align-items:center;margin-top:-56px;position:relative;box-shadow:0 18px 40px -24px rgba(21,51,78,.35)}
+@media(max-width:820px){.try{grid-template-columns:1fr;margin-top:-40px}}
+.try h3{font-size:24px;margin:8px 0 10px;letter-spacing:-.3px}
+.try p{color:var(--mute);margin:0 0 18px}
+.q{background:var(--off);border:1px solid var(--line);border-radius:14px;padding:20px}
+.q .qn{font-size:12px;font-weight:700;letter-spacing:1.5px;color:var(--mute);text-transform:uppercase}
+.q .qt{font-weight:600;font-size:16.5px;margin:8px 0 14px}
+.q .opts{display:flex;gap:8px;flex-wrap:wrap}
+.q .opts a{flex:1;text-align:center;text-decoration:none;border:2px solid var(--line);background:var(--white);border-radius:10px;padding:10px 0;font-weight:600}
+.q .opts a:hover{border-color:var(--navy)}
+.q .note{font-size:13px;color:var(--mute);margin-top:12px}
+/* paths */
+.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:820px){.paths{grid-template-columns:1fr}}
+.path{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px;text-decoration:none;display:flex;flex-direction:column;gap:8px;transition:.15s}
+.path:hover{border-color:var(--navy);transform:translateY(-2px)}
+.path .who{font-weight:800;font-size:19px}
+.path .what{color:var(--mute);font-size:15px;flex:1}
+.path .go{font-weight:700;font-size:14px;color:var(--navy)}
+.path .go::after{content:" \2192";color:var(--gold)}
+/* lifecycle */
+.life{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stages{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+@media(max-width:900px){.stages{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.stages{grid-template-columns:1fr}}
+.stage{padding:22px;border-right:1px solid var(--line);background:var(--off)}
+.stage:last-child{border-right:0}
+@media(max-width:900px){.stage{border-bottom:1px solid var(--line)}}
+.stage .n{display:inline-flex;width:30px;height:30px;border-radius:50%;background:var(--navy);color:var(--gold);font-weight:800;align-items:center;justify-content:center;font-size:14px}
+.stage h3{font-size:18px;margin:12px 0 4px}
+.stage p{color:var(--mute);font-size:14px;margin:0 0 14px}
+a.card{display:block;color:inherit;text-decoration:none}a.card:hover{border-color:var(--gold)}
+.stage ul{list-style:none;margin:0;padding:0}
+.stage li{font-size:14px;padding:8px 0;border-top:1px solid var(--line);display:flex;gap:10px}
+.stage li a{display:flex;gap:10px;color:inherit;text-decoration:none}.stage li a:hover{color:var(--gold)}
+.stage li b{color:var(--gold);min-width:30px;font-weight:800}
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:820px){.rules{grid-template-columns:1fr}}
+.rule{background:var(--navy);color:var(--white);border-radius:16px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;min-height:200px}
+.rule p{font-size:21px;font-weight:700;line-height:1.3;margin:0 0 18px;letter-spacing:-.2px}
+.rule small{color:var(--gold);font-weight:600;font-size:13px;letter-spacing:.4px}
+/* featured */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.cards{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.cards{grid-template-columns:1fr}}
+.card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.card .num{font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1.5px}
+.card h3{margin:0;font-size:18px;line-height:1.25}
+.card p{margin:0;color:var(--mute);font-size:14.5px;flex:1}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:#EEF2F6;color:var(--navy)}
+/* case */
+.case{background:var(--white);border:1px solid var(--line);border-radius:18px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+@media(max-width:820px){.case{grid-template-columns:1fr}}
+.case .l{padding:30px}
+.case .r{padding:30px;background:var(--navy);color:var(--white)}
+.flag{display:inline-block;background:var(--gold);color:var(--navy2);font-weight:800;font-size:11.5px;letter-spacing:1.5px;padding:5px 10px;border-radius:6px}
+.case h3{font-size:22px;margin:14px 0 10px;letter-spacing:-.3px}
+.case p{color:var(--mute);margin:0 0 12px}
+.case .r h4{margin:0 0 12px;color:var(--gold);font-size:13px;letter-spacing:2px;text-transform:uppercase}
+.case ol{margin:0;padding-left:22px}
+.case ol li{padding:5px 0}
+/* about */
+.about{background:var(--navy);color:var(--white)}
+.about .grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start}
+@media(max-width:820px){.about .grid{grid-template-columns:1fr}}
+.about p{color:#D6DEE6;font-size:17px}
+.facts{list-style:none;padding:0;margin:0}
+.facts li{padding:14px 0;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;gap:16px}
+.facts li span:first-child{color:#9FB2C4;font-size:14px;white-space:nowrap}
+.facts li span:last-child{font-weight:600;text-align:right}
+.contact{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.mail{margin-top:14px;font-size:14px;color:#9FB2C4}
+footer{background:var(--navy2);color:#9FB2C4;font-size:13px;padding:28px 0}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+<a class="brand" href="#top">Oise <span>OISE</span></a>
+<nav>
+<a href="#artefacts">Artefacts</a>
+<a href="triage.html">Try the triage</a>
+<a href="cases.html">Worked cases</a>
+<a href="regulation.html">Regulation tracker</a>
+<a href="about.html">About</a>
+<a class="btn btn-gold navcta" href="#contact">Contact</a>
+</nav>
+</div></header>
+
+<main id="top">
+<section class="hero"><div class="wrap">
+<div class="kicker">Data &amp; AI Governance</div>
+<h1>AI regulation, turned into controls a team can run and <em>an auditor can test.</em></h1>
+<p class="sub">Data &amp; AI Governance Manager. Eighteen working governance instruments across the EU AI Act, ISO/IEC 42001 and the NIST AI RMF, each one built to be adopted, not admired.</p>
+<div class="ctas">
+<a class="btn btn-gold" href="triage.html">Try the intake triage, 2 minutes</a>
+<a class="btn btn-line" href="#artefacts">Browse the 18 artefacts</a>
+</div>
+<div class="tags"><span class="tag">EU AI Act</span><span class="tag">ISO/IEC 42001</span><span class="tag">NIST AI RMF</span><span class="tag">UK GDPR and DUAA 2025</span><span class="tag">DAMA-DMBOK</span></div>
+</div></section>
+
+<div class="wrap">
+<div class="try">
+<div>
+<div class="label">Try it now</div>
+<h3>Which risk tier does your AI use case land in?</h3>
+<p>The intake triage from Artefact 14 runs in your browser. Three short steps, the first rule that matches sets the tier, and nothing you enter is stored.</p>
+<a class="btn btn-navy" href="triage.html">Start the triage</a>
+</div>
+<div class="q">
+<div class="qn">Step 1 of 3 · Prohibited practice</div>
+<div class="qt">Does the system infer emotions in the workplace or in educational settings?</div>
+<div class="opts"><a href="triage.html">Yes</a><a href="triage.html">No</a><a href="triage.html">Unsure</a></div>
+<div class="note">Any answer opens the full triage.</div>
+</div>
+</div>
+</div>
+
+<section id="paths"><div class="wrap">
+<div class="label">Start here</div>
+<h2>Three ways in, depending on why you came.</h2>
+<p class="lede">Each path opens on the work that answers your question first.</p>
+<div class="paths">
+<a class="path" href="#about"><span class="who">I'm hiring</span><span class="what">How I work, the six priority artefacts, and how to request my CV.</span><span class="go">See the profile</span></a>
+<a class="path" href="#artefacts"><span class="who">I'm building a governance programme</span><span class="what">The lifecycle, then the Programme Blueprint (A2) and the Operating Model (A10).</span><span class="go">See the lifecycle</span></a>
+<a class="path" href="#featured"><span class="who">I'm a practitioner</span><span class="what">The instruments themselves, and a worked case that applies them.</span><span class="go">See the artefacts</span></a>
+</div>
+</div></section>
+
+<section class="life" id="artefacts"><div class="wrap">
+<div class="label">The lifecycle</div>
+<h2>Eighteen artefacts, four stages, one evidence trail.</h2>
+<p class="lede">Every instrument sits at the point in an AI system's life where it does its work, from the standard on paper to the evidence an auditor asks for.</p>
+<div class="stages">
+<div class="stage"><span class="n">1</span><h3>Standards into controls</h3><p>What must be true, who does it, what proves it.</p><ul>
+<li><a href="a01.html"><b>A1</b>AI Governance Overview Pack</a></li><li><a href="a04.html"><b>A4</b>ISO/IEC 42001 Control Mapping Pack</a></li><li><a href="a11.html"><b>A11</b>Responsible AI Principles Matrix</a></li><li><a href="a13.html"><b>A13</b>AI Governance Policy</a></li></ul></div>
+<div class="stage"><span class="n">2</span><h3>Intake and classification</h3><p>How a use case enters, and which rules apply.</p><ul>
+<li><a href="a03.html"><b>A3</b>UK/EU AI Regulatory Mapping Brief</a></li><li><a href="a12.html"><b>A12</b>AI Governance Maturity Assessment</a></li><li><a href="a14.html"><b>A14</b>AI Use-Case Intake Form</a></li><li><a href="a16.html"><b>A16</b>EU AI Act Applicability Checklist</a></li></ul></div>
+<div class="stage"><span class="n">3</span><h3>Assessment and risk</h3><p>How a tier becomes a score, and who may accept it.</p><ul>
+<li><a href="a05.html"><b>A5</b>AI Accountability &amp; Explainability Assessment</a></li><li><a href="a06.html"><b>A6</b>Generative AI Ethics Risk Memo</a></li><li><a href="a07.html"><b>A7</b>Responsible AI Foundation Checklist</a></li><li><a href="a08.html"><b>A8</b>AI Data Governance Assessment</a></li><li><a href="a15.html"><b>A15</b>AI Risk Register</a></li></ul></div>
+<div class="stage"><span class="n">4</span><h3>Operate and prove</h3><p>Who runs it, and what can be produced on request.</p><ul>
+<li><a href="a02.html"><b>A2</b>Practical AI Governance Programme Blueprint</a></li><li><a href="a09.html"><b>A9</b>AI Product Governance Lifecycle</a></li><li><a href="a10.html"><b>A10</b>AI Governance Operating Model</a></li><li><a href="a17.html"><b>A17</b>AI Assurance Evidence Register</a></li><li><a href="a18.html"><b>A18</b>Board-Level AI Governance Briefing</a></li></ul></div>
+</div>
+</div></section>
+
+<section id="rules"><div class="wrap">
+<div class="label">How I think</div>
+<h2>Three rules, taken from the instruments.</h2>
+<p class="lede">Each one closes a gap that usually opens between governance on paper and governance in practice.</p>
+<div class="rules">
+<div class="rule"><p>A maturity score of 2.8 reports as a 2. Evidence decides the tier, not interviews.</p><small>A12 · AI Governance Maturity Assessment</small></div>
+<div class="rule"><p>The first rule that matches sets the tier, read top down.</p><small>A14 · AI Use-Case Intake Form</small></div>
+<div class="rule"><p>An unanswerable question is a finding, not a blank.</p><small>A7 · Responsible AI Foundation Checklist</small></div>
+</div>
+</div></section>
+
+<section id="featured" style="padding-top:0"><div class="wrap">
+<div class="label">Priority artefacts</div>
+<h2>Six instruments to start with.</h2>
+<p class="lede">The full documents are in the Featured section of my LinkedIn profile. Each one ships ready to adopt: insert the organisation's name, tune the thresholds, approve.</p>
+<div class="cards">
+<a class="card" href="a02.html"><span class="num">ARTEFACT 2</span><h3>Practical AI Governance Programme Blueprint</h3><p>What to build, in what order and who owns it: eleven components, a 90-day plan, and the requirements as a product backlog.</p><div class="chips"><span class="chip">ISO/IEC 42001</span><span class="chip">NIST AI RMF</span></div></a>
+<a class="card" href="a03.html"><span class="num">ARTEFACT 3</span><h3>UK/EU AI Regulatory Mapping Brief</h3><p>What the EU AI Act and the UK regime each ask, answered by one set of five controls.</p><div class="chips"><span class="chip">EU AI Act</span><span class="chip">UK GDPR</span></div></a>
+<a class="card" href="a04.html"><span class="num">ARTEFACT 4</span><h3>ISO/IEC 42001 Control Mapping Pack</h3><p>Each requirement clause mapped to a control, the evidence it produces and its owner.</p><div class="chips"><span class="chip">ISO/IEC 42001</span></div></a>
+<a class="card" href="a05.html"><span class="num">ARTEFACT 5</span><h3>AI Accountability &amp; Explainability Assessment</h3><p>The explanation a person is owed, matched to what the decision did to them.</p><div class="chips"><span class="chip">NIST AI RMF</span></div></a>
+<a class="card" href="a08.html"><span class="num">ARTEFACT 8</span><h3>AI Data Governance Assessment</h3><p>What an AI system is made of: source, quality, bias, privacy, security and monitoring.</p><div class="chips"><span class="chip">DAMA-DMBOK</span><span class="chip">EU AI Act</span></div></a>
+<a class="card" href="a10.html"><span class="num">ARTEFACT 10</span><h3>AI Governance Operating Model</h3><p>Who operates the controls: three tiers of leadership, decision rights, escalation, and a scaling path from 12 systems to 200.</p><div class="chips"><span class="chip">ISO/IEC 42001</span><span class="chip">NIST AI RMF</span></div></a>
+</div>
+</div></section>
+
+<section id="case" style="padding-top:0"><div class="wrap">
+<div class="case">
+<div class="l">
+<span class="flag">FICTIONAL CASE</span>
+<h3>One CV screening tool, two regimes.</h3>
+<p>A recruiter uses one AI tool to rank candidates in Amsterdam and London.</p>
+<p><b style="color:var(--ink)">EU:</b> employment is an Annex III domain and ranking candidates profiles them, so the tool is high-risk, with obligations from 2 December 2027 under the Digital Omnibus.</p>
+<p><b style="color:var(--ink)">UK:</b> there is no AI statute, but solely automated significant decisions carry four safeguards under UK GDPR Articles 22A to 22D, in force since 5 February 2026.</p>
+</div>
+<div class="r">
+<h4>One control set answers both</h4>
+<ol><li>A use-case classification form</li><li>A user notice and explanation standard</li><li>A human-in-the-loop decision gate</li><li>A data quality and bias review</li><li>An escalation and appeal route</li></ol>
+<p style="color:#D6DEE6;margin-top:16px">From Artefact 3, the UK/EU AI Regulatory Mapping Brief.</p>
+<a class="btn btn-gold" style="margin-top:8px" href="cases.html">See all five worked cases</a>
+</div>
+</div>
+</div></section>
+
+<section class="about" id="about"><div class="wrap"><div class="grid">
+<div>
+<div class="label">About</div>
+<h2>Governance written so the teams who build can deliver it.</h2>
+<p>I design the policies, standards and controls that make data and AI governable, and I write them with the delivery path already in view: what each control must become as requirements, epics, user stories, acceptance criteria and test scripts, so it gets built and tested rather than filed.</p>
+<p>That fluency comes from a grounding in business analysis and agile delivery. My governance work spans banking, healthcare and education, and is growing toward enterprise and business architecture.</p>
+<div class="contact" id="contact">
+<a class="btn btn-gold" href="mailto:davidoise2@outlook.com?subject=CV%20request">Request my CV</a>
+<a class="btn btn-line" href="https://www.linkedin.com/in/oiseo">Message me on LinkedIn</a>
+</div>
+<div class="mail">Email: davidoise2@outlook.com</div>
+</div>
+<ul class="facts">
+<li><span>Role</span><span>Data &amp; AI Governance Manager</span></li>
+<li><span>Approach</span><span>Governance by design, built for delivery</span></li>
+<li><span>Sectors</span><span>Banking · Healthcare · Education</span></li>
+<li><span>Frameworks</span><span>EU AI Act · ISO/IEC 42001 · NIST AI RMF · DAMA-DMBOK</span></li>
+<li><span>Credentials</span><span>Global MBA (Distinction) · CMI Level 7 · DAMA-DMBOK</span></li>
+<li><span>Open to</span><span>Senior roles, advisory and contract work across the UK, EU, UAE and US</span></li>
+</ul>
+</div></div></section>
+</main>
+
+<footer><div class="wrap">
+<span>Oise OISE · Data &amp; AI Governance</span><span><a href="about.html" style="text-decoration:none">About</a> · <a href="privacy.html" style="text-decoration:none">Privacy</a></span>
+<span>Regulatory dates as at 20 November 2026, reflecting Regulation (EU) 2026/1744. Case studies are fictional and labelled as such.</span>
+</div></footer>
+</body>
+</html>
